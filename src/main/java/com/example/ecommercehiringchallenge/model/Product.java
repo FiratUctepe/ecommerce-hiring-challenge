@@ -16,22 +16,18 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
-    @NotNull
-    @NotBlank
-    private String name;
-    @Min(0)
-    @NotNull
+    private String productName;
+
     private Double price;
-    @Min(20)
-    @NotNull
+
     private Integer stock;
+
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
-
 
 }
