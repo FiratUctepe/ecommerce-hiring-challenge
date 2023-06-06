@@ -3,11 +3,10 @@ package com.example.ecommercehiringchallenge.dto.request;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class CreateProductRequest {
+public class UpdateProductRequest {
 
     @NotBlank(message = "Ürün ismi boş veya tanımsız olamaz")
     private String productName;
@@ -21,7 +20,4 @@ public class CreateProductRequest {
     private Integer stock;
 
     private String description;
-
-    @NotBlank(message = "Kategori boş veya tanımsız olamaz")
-    private String categoryName;
 }

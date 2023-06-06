@@ -1,30 +1,30 @@
-package com.example.ecommercehiringchallenge.dto.response;
+package com.example.ecommercehiringchallenge.dto.util;
 
 import com.example.ecommercehiringchallenge.model.Product;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class ProductResponseDto {
-
+public class CategoryProductDto {
     private Integer id;
+
     private String productName;
+
     private Double price;
+
     private Integer stock;
+
     private String description;
-    private String categoryName;
     private Date createdDate;
 
-    public ProductResponseDto(Product product){
+    public CategoryProductDto(Product product){
         this.id = product.getId();
         this.productName = product.getProductName();
         this.price = product.getPrice();
         this.stock = product.getStock();
         this.description = product.getDescription();
-        this.categoryName = product.getCategory().getCategoryName();
         this.createdDate = product.getCreatedDate();
     }
+
 }

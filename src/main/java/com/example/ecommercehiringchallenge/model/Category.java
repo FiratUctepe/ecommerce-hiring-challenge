@@ -20,5 +20,6 @@ public class Category {
     private String categoryName;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "category",cascade = CascadeType.ALL)
+    @Column(name = "products")
     private List<Product> products;
 }
