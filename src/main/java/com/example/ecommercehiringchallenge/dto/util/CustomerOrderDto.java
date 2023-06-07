@@ -4,6 +4,7 @@ import com.example.ecommercehiringchallenge.dto.response.ProductResponseDto;
 import com.example.ecommercehiringchallenge.model.Customer;
 import com.example.ecommercehiringchallenge.model.Order;
 import com.example.ecommercehiringchallenge.model.Product;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 
@@ -16,6 +17,7 @@ public class CustomerOrderDto {
     private Integer id;
     private Double totalAmount;
     private List<ProductResponseDto> products;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Date createdDate;
 
     public CustomerOrderDto(Order order) {
@@ -23,7 +25,6 @@ public class CustomerOrderDto {
         this.products = order.getProducts().stream()
                 .map((product) -> new ProductResponseDto(product))
                 .collect(Collectors.toList());
-        this.createdDate = order.getCreatedDate();
         this.totalAmount = order.getTotalAmount();
         this.createdDate = order.getCreatedDate();
     }

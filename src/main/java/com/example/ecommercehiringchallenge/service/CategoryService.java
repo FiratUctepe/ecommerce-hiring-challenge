@@ -1,10 +1,16 @@
 package com.example.ecommercehiringchallenge.service;
 
+import com.example.ecommercehiringchallenge.dto.request.CreateCategoryRequest;
+import com.example.ecommercehiringchallenge.dto.request.UpdateCategoryRequest;
+import com.example.ecommercehiringchallenge.dto.response.CategoryResponseDto;
+import com.example.ecommercehiringchallenge.exception.NotFoundCategoryException;
 import com.example.ecommercehiringchallenge.model.Category;
 import com.example.ecommercehiringchallenge.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -15,16 +21,39 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Category createCategory(Category category){
+    private Category findCategoryById(Integer categoryId){
+        return categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new NotFoundCategoryException("Bu id ile kategori bulunamadı : " +categoryId));
+    }
+    public CategoryResponseDto createCategory(CreateCategoryRequest createCategoryRequest){
         Category saveCategory = new Category();
 
-        saveCategory.setCategoryName(category.getCategoryName());
-        saveCategory.setProducts(category.getProducts());
-
-        return categoryRepository.save(saveCategory);
+        saveCategory.setCategoryName(createCategoryRequest.getCategoryName());
+        saveCategory.setProducts(new ArrayList<>());
+        return new CategoryResponseDto(categoryRepository.save(saveCategory));
     }
 
-    public List<Category> getAllCategory(){
-        return categoryRepository.findAll();
+    public List<CategoryResponseDto> getAllCategory(){
+
+        return categoryRepository.findAll().stream()
+                .map((category) -> new CategoryResponseDto(category))
+                .collect(Collectors.toList());
+    }
+
+    public CategoryResponseDto getCategoryById(Integer categoryId) {
+        return new CategoryResponseDto(findCategoryById(categoryId));
+    }
+
+
+    public CategoryResponseDto updateCategory(Integer categoryId, UpdateCategoryRequest updateCategoryRequest) {
+        Category category = findCategoryById(categoryId);
+        category.setCategoryName(updateCategoryRequest.getCategoryName());
+
+        categoryRepository.save(category);
+        return new CategoryResponseDto(category);
+    }
+
+    public void deleteCategory(Integer categoryId) {
+        categoryRepository.deleteById(categoryId);
     }
 }

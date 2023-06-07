@@ -1,6 +1,7 @@
 package com.example.ecommercehiringchallenge.dto.response;
 
 import com.example.ecommercehiringchallenge.model.Product;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class ProductResponseDto {
     private Integer stock;
     private String description;
     private String categoryName;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Date createdDate;
 
     public ProductResponseDto(Product product){

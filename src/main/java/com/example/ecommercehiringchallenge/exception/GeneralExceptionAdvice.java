@@ -11,7 +11,22 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GeneralExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({NotFoundProductException.class})
-    public ResponseEntity<String> handle(NotFoundProductException e){
-        return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> handle(NotFoundProductException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({NotFoundCategoryException.class})
+    public ResponseEntity<String> handle(NotFoundCategoryException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({NotFoundCustomerException.class})
+    public ResponseEntity<String> handle(NotFoundCustomerException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({NotFoundOrderException.class})
+    public ResponseEntity<String> handle(NotFoundOrderException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 }

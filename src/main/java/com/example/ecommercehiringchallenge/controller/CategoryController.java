@@ -1,7 +1,12 @@
 package com.example.ecommercehiringchallenge.controller;
 
-import com.example.ecommercehiringchallenge.model.Category;
+import com.example.ecommercehiringchallenge.dto.request.CreateCategoryRequest;
+import com.example.ecommercehiringchallenge.dto.request.UpdateCategoryRequest;
+import com.example.ecommercehiringchallenge.dto.response.CategoryResponseDto;
 import com.example.ecommercehiringchallenge.service.CategoryService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,14 +23,31 @@ public class CategoryController {
     }
 
     @GetMapping
-    public List<Category> getAllCategory(){
-        return categoryService.getAllCategory();
+    public ResponseEntity<List<CategoryResponseDto>> getAllCategory(){
+        return ResponseEntity.ok(categoryService.getAllCategory());
     }
 
+    @GetMapping("/{categoryId}")
+    public ResponseEntity<CategoryResponseDto> getCategoryById(@PathVariable Integer categoryId){
+        return ResponseEntity.ok(categoryService.getCategoryById(categoryId));
+    }
 
     @PostMapping
-    public Category createCategory(@RequestBody Category category){
-        return categoryService.createCategory(category);
+    public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody @Valid CreateCategoryRequest createCategoryRequest){
+        return ResponseEntity.ok(categoryService.createCategory(createCategoryRequest));
     }
+
+    @PutMapping("/{categoryId}")
+    public ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable Integer categoryId,
+                                                              @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest){
+        return ResponseEntity.ok(categoryService.updateCategory(categoryId,updateCategoryRequest));
+    }
+
+    @DeleteMapping("/{categoryId}")
+    public void deleteCategory(@PathVariable Integer categoryId){
+        categoryService.deleteCategory(categoryId);
+    }
+
+
 
 }

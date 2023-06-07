@@ -1,13 +1,11 @@
 package com.example.ecommercehiringchallenge.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,6 +18,11 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(unique = true)
+    private String userName;
+
+    private String password;
+
     private String firstName;
 
     private String lastName;
@@ -28,5 +31,10 @@ public class Customer {
 
     private Integer age;
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "customer",cascade = CascadeType.ALL)
+    @Column(name = "orders")
     private List<Order> orders;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
 }

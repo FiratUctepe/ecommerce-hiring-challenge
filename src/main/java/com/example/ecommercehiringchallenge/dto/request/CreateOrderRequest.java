@@ -1,7 +1,6 @@
 package com.example.ecommercehiringchallenge.dto.request;
 
-import com.example.ecommercehiringchallenge.dto.response.ProductResponseDto;
-
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -13,10 +12,9 @@ public class CreateOrderRequest {
 
     @NotNull
     @NotEmpty
-    private List<Integer> producId;
+    private List<Integer> productIds;
 
     @NotNull
-    @NotEmpty
     private Integer customerId;
 
 }

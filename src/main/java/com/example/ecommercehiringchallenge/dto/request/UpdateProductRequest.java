@@ -8,15 +8,15 @@ import lombok.Data;
 @Data
 public class UpdateProductRequest {
 
-    @NotBlank(message = "Ürün ismi boş veya tanımsız olamaz")
+    @NotBlank
     private String productName;
 
-    @Min(value = 1,message = "Ürün fiyatı 1 liranın altında olamaz")
-    @NotNull(message = "Ürün fiyatı boş olamaz")
+    @Min(value = 1)
+    @NotNull
     private Double price;
 
-    @Min(value = 0,message = "Ürün stoğu 0'ın altında olamaz")
-    @NotNull(message = "Ürün stoğu boş olamaz")
+    @Min(value = 0)
+    @NotNull
     private Integer stock;
 
     private String description;
