@@ -6,6 +6,7 @@ import com.example.ecommercehiringchallenge.dto.response.ProductResponseDto;
 import com.example.ecommercehiringchallenge.service.ProductService;
 import jakarta.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponseDto> createProduct(@Valid @RequestBody CreateProductRequest createProductRequest){
-        return ResponseEntity.ok(productService.createProduct(createProductRequest));
+        return new ResponseEntity<>(productService.createProduct(createProductRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{productId}")

@@ -6,6 +6,7 @@ import com.example.ecommercehiringchallenge.model.Order;
 import com.example.ecommercehiringchallenge.repository.OrderRepository;
 import com.example.ecommercehiringchallenge.service.OrderService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +37,7 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderResponseDto> createOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest){
 
-        return ResponseEntity.ok(orderService.createOrder(createOrderRequest));
+        return new ResponseEntity<>(orderService.createOrder(createOrderRequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{orderId}")

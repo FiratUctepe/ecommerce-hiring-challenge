@@ -12,6 +12,7 @@ import com.example.ecommercehiringchallenge.repository.CustomerRepository;
 import com.example.ecommercehiringchallenge.repository.OrderRepository;
 import com.example.ecommercehiringchallenge.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,6 +37,7 @@ public class OrderService {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new NotFoundOrderException("Bu id ile bir sipariş bulunamamıştır : " + orderId));
     }
+    @Transactional
 
     public OrderResponseDto createOrder(CreateOrderRequest createOrderRequest){
         Order order = new Order();
@@ -72,6 +74,7 @@ public class OrderService {
     public OrderResponseDto getOrderById(Integer orderId) {
         return new OrderResponseDto(findOrderById(orderId));
     }
+    @Transactional
 
     public void deleteOrder(Integer orderId){
         orderRepository.delete(findOrderById(orderId));

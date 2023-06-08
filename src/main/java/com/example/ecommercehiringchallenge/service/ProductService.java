@@ -10,6 +10,7 @@ import com.example.ecommercehiringchallenge.model.Product;
 import com.example.ecommercehiringchallenge.repository.CategoryRepository;
 import com.example.ecommercehiringchallenge.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.List;
@@ -36,6 +37,8 @@ public class ProductService {
         Product product = findProductById(productId);
         return new ProductResponseDto(product);
     }
+    @Transactional
+
     public ProductResponseDto createProduct(CreateProductRequest createProductRequest){
         Product saveProduct = new Product();
         Category category = categoryRepository.findByCategoryName(createProductRequest.getCategoryName())
@@ -64,10 +67,12 @@ public class ProductService {
                                 .map((product) -> new ProductResponseDto(product))
                                 .collect(Collectors.toList());
     }
+    @Transactional
 
     public void deleteProduct(Integer productId) {
         productRepository.delete(findProductById(productId));
     }
+    @Transactional
 
     public ProductResponseDto updateProduct(Integer productId,UpdateProductRequest updateProductRequest) {
         Product product = findProductById(productId);

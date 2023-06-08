@@ -6,6 +6,7 @@ import com.example.ecommercehiringchallenge.dto.response.CategoryResponseDto;
 import com.example.ecommercehiringchallenge.service.CategoryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody @Valid CreateCategoryRequest createCategoryRequest){
-        return ResponseEntity.ok(categoryService.createCategory(createCategoryRequest));
+        return new ResponseEntity<>(categoryService.createCategory(createCategoryRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{categoryId}")

@@ -7,6 +7,7 @@ import com.example.ecommercehiringchallenge.exception.NotFoundCategoryException;
 import com.example.ecommercehiringchallenge.model.Category;
 import com.example.ecommercehiringchallenge.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class CategoryService {
         return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new NotFoundCategoryException("Bu id ile kategori bulunamadı : " +categoryId));
     }
+    @Transactional
     public CategoryResponseDto createCategory(CreateCategoryRequest createCategoryRequest){
         Category saveCategory = new Category();
 
@@ -44,6 +46,7 @@ public class CategoryService {
         return new CategoryResponseDto(findCategoryById(categoryId));
     }
 
+    @Transactional
 
     public CategoryResponseDto updateCategory(Integer categoryId, UpdateCategoryRequest updateCategoryRequest) {
         Category category = findCategoryById(categoryId);
@@ -52,6 +55,7 @@ public class CategoryService {
         categoryRepository.save(category);
         return new CategoryResponseDto(category);
     }
+    @Transactional
 
     public void deleteCategory(Integer categoryId) {
         categoryRepository.deleteById(categoryId);
