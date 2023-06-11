@@ -1,4 +1,4 @@
-package com.example.ecommercehiringchallenge.service;
+package com.example.ecommercehiringchallenge.service.Imp;
 
 import com.example.ecommercehiringchallenge.dto.request.CreateCustomerRequest;
 import com.example.ecommercehiringchallenge.dto.request.UpdateCustomerRequest;
@@ -11,36 +11,36 @@ import com.example.ecommercehiringchallenge.model.Token;
 import com.example.ecommercehiringchallenge.repository.CustomerRepository;
 import com.example.ecommercehiringchallenge.repository.RoleRepository;
 import com.example.ecommercehiringchallenge.repository.TokenRepository;
-import jakarta.mail.MessagingException;
+import javax.mail.MessagingException;
+
+import com.example.ecommercehiringchallenge.service.ICustomerService;
 import org.springframework.mail.javamail.JavaMailSender;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
-public class CustomerService {
+public class CustomerService implements ICustomerService {
 
     private final CustomerRepository customerRepository;
     private final RoleRepository roleRepository;
     private final TokenRepository tokenRepository;
-
     private final JavaMailSender javaMailSender;
-//    private final PasswordEncoder passwordEncoder;
-
+    private final PasswordEncoder passwordEncoder;
     public CustomerService(CustomerRepository customerRepository,
                            RoleRepository roleRepository,
                            TokenRepository tokenRepository,
-                           JavaMailSender javaMailSender
-//                           PasswordEncoder passwordEncoder
-    ) {
+                           JavaMailSender javaMailSender,
+                           PasswordEncoder passwordEncoder){
         this.customerRepository = customerRepository;
-
         this.roleRepository = roleRepository;
         this.tokenRepository = tokenRepository;
         this.javaMailSender = javaMailSender;
-//        this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
+
     }
     private Customer findCustomerById(Integer customerId) {
         return customerRepository.findById(customerId)
@@ -59,14 +59,14 @@ public class CustomerService {
         //Customer @Builder anotasyonuyla customer oluşturuyoruz
         Customer customer = Customer.builder()
                         .userName(createCustomerRequest.getUserName())
-//                        .password(passwordEncoder.encode(createCustomerRequest.getPassword()))
+                        .password(passwordEncoder.encode(createCustomerRequest.getPassword()))
                         .firstName(createCustomerRequest.getFirstName())
-                        .lastName(createCustomerRequest.getLastName())
-                        .age(createCustomerRequest.getAge())
-                        .email(createCustomerRequest.getEmail())
-                        .roles(new HashSet<>())
+                        .lastName(createCustomerRequest.getLastName()).age(createCustomerRequest.getAge())
+                        .email(createCustomerRequest.getEmail()).roles(new HashSet<>())
                         .orders(new ArrayList<>())
                         .createdDate(Calendar.getInstance().getTime())
+                        .isAccountNonExpired(true).isAccountNonLocked(true)
+                        .isCredentialsNonExpired(true).isEnabled(true)
                         .build();
 
         customerRepository.save(customer);
@@ -108,20 +108,26 @@ public class CustomerService {
     }
 
     public String customerTokenConfirm(String tokenNumber) {
+
         Optional<Token> token = tokenRepository.findByTokenCode(tokenNumber);
+
         if(token.isPresent()){
+
             //Token doğruysa rolü set edip veritabınana kaydediyoruz
             Role role = new Role();
-            role.setRoleName(ERole.USER.getValue());
+            role.setRoleName("ROLE_"+ERole.USER.getValue());
             roleRepository.save(role);
+
             //Sonra tokenın ait olduğu kullanıcıya bu rolü set edip veritabanına kaydediyoruz
             Customer customer = token.get().getCustomer();
             customer.getRoles().add(role);
             customerRepository.save(customer);
+
             //Daha sonra bu tokenı veritabanımızdan siliyoruz.
             //Çünkü bir seferlik doğrulama için kullanılacak
             tokenRepository.delete(token.get());
-            return "Başarılı bir şekilde aktive oldu";
+
+            return "Başarılı bir şekilde aktive oldu \n" ;
         }
         return "Maalesef aktive olamadınız";
     }

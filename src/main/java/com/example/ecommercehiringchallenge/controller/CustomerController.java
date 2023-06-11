@@ -3,15 +3,14 @@ package com.example.ecommercehiringchallenge.controller;
 import com.example.ecommercehiringchallenge.dto.request.CreateCustomerRequest;
 import com.example.ecommercehiringchallenge.dto.request.UpdateCustomerRequest;
 import com.example.ecommercehiringchallenge.dto.response.CustomerResponseDto;
-import com.example.ecommercehiringchallenge.model.Token;
-import com.example.ecommercehiringchallenge.service.CustomerService;
-import jakarta.mail.MessagingException;
+import com.example.ecommercehiringchallenge.repository.CustomerRepository;
+import com.example.ecommercehiringchallenge.service.Imp.CustomerService;
+import javax.mail.MessagingException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/api/customer")
@@ -19,6 +18,8 @@ import java.util.Optional;
 public class CustomerController {
 
     private final CustomerService customerService;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
@@ -35,15 +36,10 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.customerTokenConfirm(token));
     }
 
-
-    @PostMapping("/create")
+    @PostMapping("/register")
     public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CreateCustomerRequest createCustomerRequest) throws MessagingException {
         return new ResponseEntity<>(customerService.createCustomer(createCustomerRequest), HttpStatus.CREATED);
     }
-
-//    @PostMapping("/singin")
-//    public ResponseEntity<CustomerResponseDto> singInCustomer(@RequestBody String userName,@RequestParam)
-
 
     @PutMapping("/{customerId}")
     public ResponseEntity<CustomerResponseDto> updateCustomerById(@PathVariable Integer customerId,

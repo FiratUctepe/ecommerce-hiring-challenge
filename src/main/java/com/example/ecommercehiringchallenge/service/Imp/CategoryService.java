@@ -1,4 +1,4 @@
-package com.example.ecommercehiringchallenge.service;
+package com.example.ecommercehiringchallenge.service.Imp;
 
 import com.example.ecommercehiringchallenge.dto.request.CreateCategoryRequest;
 import com.example.ecommercehiringchallenge.dto.request.UpdateCategoryRequest;
@@ -6,6 +6,7 @@ import com.example.ecommercehiringchallenge.dto.response.CategoryResponseDto;
 import com.example.ecommercehiringchallenge.exception.NotFoundCategoryException;
 import com.example.ecommercehiringchallenge.model.Category;
 import com.example.ecommercehiringchallenge.repository.CategoryRepository;
+import com.example.ecommercehiringchallenge.service.ICategoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryService {
+public class CategoryService implements ICategoryService {
 
     private final CategoryRepository categoryRepository;
 

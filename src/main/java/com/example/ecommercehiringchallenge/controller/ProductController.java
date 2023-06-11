@@ -3,8 +3,8 @@ package com.example.ecommercehiringchallenge.controller;
 import com.example.ecommercehiringchallenge.dto.request.CreateProductRequest;
 import com.example.ecommercehiringchallenge.dto.request.UpdateProductRequest;
 import com.example.ecommercehiringchallenge.dto.response.ProductResponseDto;
-import com.example.ecommercehiringchallenge.service.ProductService;
-import jakarta.validation.Valid;
+import com.example.ecommercehiringchallenge.service.Imp.ProductService;
+import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

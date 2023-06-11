@@ -1,7 +1,6 @@
 package com.example.ecommercehiringchallenge.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;

@@ -2,8 +2,6 @@ package com.example.ecommercehiringchallenge.dto.response;
 
 import com.example.ecommercehiringchallenge.model.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Data;
 
 import java.util.Date;

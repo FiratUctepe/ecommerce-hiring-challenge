@@ -1,11 +1,8 @@
 package com.example.ecommercehiringchallenge.dto.request;
 
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import lombok.Data;
-import org.hibernate.validator.constraints.UniqueElements;
-
-import java.util.List;
 
 @Data
 public class CreateCustomerRequest {
@@ -22,6 +19,7 @@ public class CreateCustomerRequest {
     @NotBlank
     private String lastName;
 
+    @Email
     private String email;
 
     private Integer age;

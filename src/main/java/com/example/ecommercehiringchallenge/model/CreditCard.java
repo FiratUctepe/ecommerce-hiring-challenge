@@ -1,31 +1,38 @@
 package com.example.ecommercehiringchallenge.model;
 
-import javax.persistence.*;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "orders")
-public class Order {
-
+public class CreditCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Double totalAmount;
+    private String cardName;
 
-    @OneToMany(mappedBy = "order")
-    @Column(name = "products")
-    private List<Product> products;
+    @NotBlank
+    private String cardNumber;
+
+    @NotBlank
+    private String cardExpiredDate;
+
+    @NotNull
+    private Integer cvvNumber;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -33,6 +40,8 @@ public class Order {
     private Customer customer;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date createdDate;
+
 
 }

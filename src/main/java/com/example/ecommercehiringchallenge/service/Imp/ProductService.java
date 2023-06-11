@@ -1,4 +1,4 @@
-package com.example.ecommercehiringchallenge.service;
+package com.example.ecommercehiringchallenge.service.Imp;
 
 import com.example.ecommercehiringchallenge.dto.request.CreateProductRequest;
 import com.example.ecommercehiringchallenge.dto.request.UpdateProductRequest;
@@ -9,6 +9,7 @@ import com.example.ecommercehiringchallenge.model.Category;
 import com.example.ecommercehiringchallenge.model.Product;
 import com.example.ecommercehiringchallenge.repository.CategoryRepository;
 import com.example.ecommercehiringchallenge.repository.ProductRepository;
+import com.example.ecommercehiringchallenge.service.IProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductService {
+public class ProductService implements IProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
