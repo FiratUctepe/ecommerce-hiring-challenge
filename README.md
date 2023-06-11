@@ -26,4 +26,5 @@ This command will build the Docker image for the project and start it. The appli
 Open the following URL in your browser:
 
 ``http://localhost:8080``
+![customer confirm](https://github.com/FiratUctepe/ecommerce-hiring-challenge/assets/108686427/b5adafc1-f3a9-4bc3-ad1e-1c419bdc2ee9)
 
