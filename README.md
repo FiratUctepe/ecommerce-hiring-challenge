@@ -15,6 +15,12 @@ Navigate to the project directory:
   cd ecommerce-hiring-challenge
 ``
 
+Build the docker:
+
+``
+  docker build -t ITG-ecommerce .
+``
+
 Start the project using Docker Compose:
 
 ``
