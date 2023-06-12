@@ -18,7 +18,7 @@ Navigate to the project directory:
 Build the docker:
 
 ``
-  docker build -t ITG-ecommerce .
+  docker build -t itg-hiring:1.0.0 .
 ``
 
 Start the project using Docker Compose:
