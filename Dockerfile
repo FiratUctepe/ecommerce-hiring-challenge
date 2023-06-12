@@ -9,5 +9,5 @@ RUN ./mvnw package
 
 FROM openjdk:17-jdk-slim
 WORKDIR open-weather
-COPY --from=build target/*.jar open-weather.jar
-ENTRYPOINT ["java", "-jar", "open-weather.jar"]
+COPY --from=build target/*.jar itg-hiraing.jar
+ENTRYPOINT ["java", "-jar", "itg-hiraing.jar"]
