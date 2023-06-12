@@ -2,6 +2,6 @@ version: '3.9'
 
 services:
   app:
-    image: 'open-weather-app:1.0.0'
+    image: 'itg-hiring:1.0.0'
     ports:
       - "8080:8080"
